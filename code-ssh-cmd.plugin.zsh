@@ -37,6 +37,3 @@ codessh() {
     fi
 }
 
-# Export the codessh command to the current shell
-typeset -f codessh
-
