@@ -29,11 +29,18 @@ codessh() {
         # Otherwise, use username and remote IP address to generate the command
         local username=${USER}
         local remote_ip=$(echo $SSH_CONNECTION | awk '{print $3}')
+        local remote_port=$(echo $SSH_CONNECTION | awk '{print $4}')
         if [[ -z "$remote_ip" ]]; then
             echo "Error: Could not determine remote IP address." >&2
             return 1
         fi
-        echo "code --folder-uri vscode-remote://ssh-remote+$username@$remote_ip$target_dir"
+        
+        # If the port is not the default port 22, add it to the command
+        if [[ "$remote_port" != "22" ]]; then
+            echo "code --folder-uri vscode-remote://ssh-remote+$username@$remote_ip:$remote_port$target_dir"
+        else
+            echo "code --folder-uri vscode-remote://ssh-remote+$username@$remote_ip$target_dir"
+        fi
     fi
 }
 
