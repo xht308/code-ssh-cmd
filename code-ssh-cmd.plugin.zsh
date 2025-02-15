@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 # Check if we are in an SSH session
 if [[ -z "$SSH_CLIENT" && -z "$SSH_CONNECTION" ]]; then
@@ -57,3 +57,8 @@ codessh() {
     osc52_copy "$ssh_command"
 }
 
+# Alias code -> codessh
+# if X11 is not available
+if [[ -z "$DISPLAY" ]]; then
+    alias code=codessh
+fi
