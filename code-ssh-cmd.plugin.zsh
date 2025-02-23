@@ -59,6 +59,6 @@ codessh() {
 
 # Alias code -> codessh
 # if X11 is not available
-if [[ -z "$DISPLAY" ]] && [[ ! $(command -v code) ]]; then
+if [[ -z "$DISPLAY" && -z "$VSCODE_INJECTION" ]]; then
     alias code=codessh
 fi
